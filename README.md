@@ -1,5 +1,5 @@
-# kafka-producer-java-hello-world
-A simple Java Kafka producer.
+# kafka-producer-java-hello-world-idempotent
+A simple Java Kafka idempotent producer.
 
 ## Dependencies (`pom.xml`)
 
@@ -34,6 +34,8 @@ Properties properties = new Properties();
 properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, server);
 properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+
+properties.setProperty(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, "true");
 
 KafkaProducer<String, String> producer = new KafkaProducer<String, String>(properties);
 ProducerRecord<String, String> record = new ProducerRecord<String,String>(topic, message);
