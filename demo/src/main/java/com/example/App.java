@@ -24,7 +24,8 @@ public final class App {
         // create Producer properties
         // https://kafka.apache.org/documentation/#producerconfigs
 
-        String server = "172.25.145.150:9092";
+        String server = "172.20.229.109:9092";
+        // String server = "172.25.145.150:9092";
         String topic = "first_topic";
         String message = "hello world!";
 
@@ -32,6 +33,13 @@ public final class App {
         properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, server);
         properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+
+        // create a safe producer
+        properties.setProperty(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, "true");
+        // the next configs are automatically set
+        // ProducerConfig.ACKS_CONFIG = "all" or "-1"
+        // ProducerConfig.RETRIES_CONFIG  = Integer.toString(Integer.MAX_VALUE)
+        // ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION = "5"
 
         // create the producer
         KafkaProducer<String, String> producer = new KafkaProducer<String, String>(properties);
